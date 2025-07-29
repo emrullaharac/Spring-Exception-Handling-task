@@ -1,5 +1,6 @@
 package de.neuefische.springexceptionhandlingtask;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -18,6 +19,7 @@ public class CarController {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage illegalArgument(IllegalArgumentException message) {
         return new ErrorMessage(message.getMessage(), Instant.now());
     }

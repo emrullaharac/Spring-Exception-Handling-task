@@ -1,10 +1,8 @@
 package de.neuefische.springexceptionhandlingtask;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -17,6 +15,11 @@ public class AnimalController {
             throw new IllegalArgumentException("Only 'dog' is allowed");
         }
         return species;
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ErrorMessage illegalArgument(IllegalArgumentException message) {
+        return new ErrorMessage(message.getMessage(), Instant.now());
     }
 
     @GetMapping
